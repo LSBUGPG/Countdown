@@ -1,28 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
+    AudioSource music;
     RectTransform rectangle;
     float time = 0.0f;
 
     void Start()
     {
         rectangle = GetComponent<RectTransform>();
+        music = GetComponent<AudioSource>();
         rectangle.localRotation = Quaternion.identity;
-        StartTimer();
     }
 
     void Update()
     {
-        rectangle.localRotation = Quaternion.Euler(0.0f, 0.0f, -time * 6.0f);
+        rectangle.localRotation = Quaternion.Euler(0.0f, 0.0f, 90 - time * 6.0f);
     }
 
     public void StartTimer()
     {
-        time = 0.0f;
-        StartCoroutine(TimerUpdate());
+        if (time == 0.0f)
+        {
+            music.Play();
+            StartCoroutine(TimerUpdate());
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     IEnumerator TimerUpdate()
