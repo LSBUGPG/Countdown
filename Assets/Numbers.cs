@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Numbers : MonoBehaviour {
-
+public class Numbers : MonoBehaviour
+{
+    public Text target;
     List<int> bigNumbers = new List<int>();
     List<int> smallNumbers = new List<int>();
     int index = 0;
@@ -18,16 +19,10 @@ public class Numbers : MonoBehaviour {
         AddToList(bigNumbers, 75, 1);
         AddToList(bigNumbers, 100, 1);
 
-        AddToList(smallNumbers, 1, 1);
-        AddToList(smallNumbers, 2, 1);
-        AddToList(smallNumbers, 3, 1);
-        AddToList(smallNumbers, 4, 1);
-        AddToList(smallNumbers, 5, 1);
-        AddToList(smallNumbers, 6, 1);
-        AddToList(smallNumbers, 7, 1);
-        AddToList(smallNumbers, 8, 1);
-        AddToList(smallNumbers, 9, 1);
-        AddToList(smallNumbers, 10, 1);
+        for (int i = 1; i <= 10; ++i)
+        {
+            AddToList(smallNumbers, i, 2);
+        }
     }
 
     void AddToList(List<int> list, int number, int frequency)
@@ -70,6 +65,20 @@ public class Numbers : MonoBehaviour {
                 text.text = number.ToString();
             }
             index++;
+        }
+
+        if (index == 6)
+        {
+            StartCoroutine(RandomTarget());
+        }
+    }
+
+    IEnumerator RandomTarget()
+    {
+        for (int i = 0; i < 100; ++i)
+        {
+            target.text = Random.Range(100, 1000).ToString();
+            yield return null;
         }
     }
 }
